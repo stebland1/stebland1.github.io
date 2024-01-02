@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+    <!-- Ortto templatesb capture code -->
+    <script>
+      window.ap3c = window.ap3c || {};
+      var ap3c = window.ap3c;
+      ap3c.cmd = ap3c.cmd || [];
+      ap3c.cmd.push(function () {
+        ap3c.init(
+          "YsP5UoBuiqQfbK4mdGVtcGxhdGVzYg",
+          "https://capture-api-au.ortto-stg.app/",
+        );
+        ap3c.track({ v: 0 });
+      });
+      ap3c.activity = function (act) {
+        ap3c.act = ap3c.act || [];
+        ap3c.act.push(act);
+      };
+      var s, t;
+      s = document.createElement("script");
+      s.type = "text/javascript";
+      // s.src = "https://static.ap3stg.com/capture/master/capture.js";
+      s.src = "http://localhost:9034/ap3-capture-ui/dist/capture.js";
+      t = document.getElementsByTagName("script")[0];
+      t.parentNode.insertBefore(s, t);
+    </script>
+    <script>
+      var formSubmit = function (e) {
+        console.log(e);
+        e.preventDefault();
+      };
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div className="App">
+      <header className="App-header">
+        <img src="{logo}" className="App-logo" alt="logo" />
+        <form id="basictrackedform" action="" onsubmit="event.preventDefault()">
+          <label for="fname">First name:</label>
+          <input
+            type="hidden"
+            id="fname"
+            name="fname"
+            placeholder="First Name"
+          />
+          <label for="lname">Last name:</label>
+          <input type="text" id="lname" name="lname" placeholder="Last Name" />
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Email" />
+          <label for="phone">Phone (tel):</label>
+          <input type="tel" id="phone" name="phone" />
+          <input id="submit" type="submit" value="Submit" name="submit" />
+        </form>
+      </header>
+    </div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
