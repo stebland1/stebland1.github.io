@@ -1,0 +1,91 @@
+:root {
+  --bg: #282828;
+  --surface: #3c3836;
+  --surface-alt: #504945;
+  --text: #ebdbb2;
+  --text-muted: #a89984;
+  --yellow: #fabd2f;
+  --green: #8ec07c;
+  --orange: #fe8019;
+  --red: #fb4934;
+  --purple: #d3869b;
+  --blue: #83a598;
+
+	--sidebar-width: 15rem;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Fira Code', monospace;
+	background-color: var(--bg);
+	color: var(--text);
+	display: flex;
+}
+
+h1, h2, ul {
+	padding: 0;
+	margin: 0;
+}
+
+main {
+	margin-left: var(--sidebar-width);
+	padding: 1rem;
+}
+
+.icon {
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.sidebar {
+	width: var(--sidebar-width);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	overflow-y: auto;
+	border-right: 1px solid var(--surface);
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.4rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	padding-top: 1rem;
+}
+
+.menu li {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	border-radius: 0.2rem;
+	padding: 0.4rem 0.8rem;
+	width: 100%;
+}
+
+.menu li.active {
+	background-color: var(--surface);
+}
+
+.menu li.active .icon {
+	color: var(--orange);
+}
+
+.menu li:hover {
+	background-color: var(--surface-alt);
+}
+
+.menu li:hover .icon {
+	color: var(--green);
+}
+
+.menu li span {
+	margin-left: 0.6rem
+}
+
