@@ -28,10 +28,15 @@ body {
 	background-color: var(--bg);
 	color: var(--text);
 	display: flex;
+	line-height: 1.4;
 }
 
 ul {
 	list-style: none;
+}
+
+a {
+	color: var(--orange);
 }
 
 main {
