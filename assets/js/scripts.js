@@ -9,10 +9,11 @@ const content = document.querySelector("#content");
 const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
 
 window.addEventListener("DOMContentLoaded", loadFromHash);
+window.addEventListener("popstate", () => loadFromHash({ navType: "replace" }));
 
-function loadFromHash() {
+function loadFromHash(opts) {
   const page = location.hash.slice(1) || pages.ABOUT;
-  handleLoadContent(page);
+  handleLoadContent(page, opts);
 }
 
 for (const link of sidebarMenuItems) {
@@ -29,8 +30,10 @@ for (const link of sidebarMenuItems) {
 
 /**
  * @param {string} page
+ * @param {Object} opts
+ * @param {string} [opts.navType]
  */
-async function handleLoadContent(page) {
+async function handleLoadContent(page, opts = { navType: "push" }) {
   try {
     const res = await fetch(`pages/${page}.html`);
 
@@ -40,9 +43,17 @@ async function handleLoadContent(page) {
 
     const html = await res.text();
     content.innerHTML = html;
-    const url = page == pages.ABOUT ? "/" : `#${page}`;
 
-    history.pushState(null, "", url);
+    const url = page == pages.ABOUT ? "/" : `#${page}`;
+    switch (opts.navType) {
+      case "push":
+        history.pushState(null, "", url);
+        break;
+      case "replace":
+        history.replaceState(null, "", url);
+        break;
+    }
+
     document.querySelector(`.sidebar li.active`)?.classList.remove("active");
     document.querySelector(`li[data-page=${page}]`).classList.add("active");
   } catch (err) {
