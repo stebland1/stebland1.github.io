@@ -18,6 +18,11 @@
 	box-sizing: border-box;
 }
 
+h1, h2, ul {
+	padding: 0;
+	margin: 0;
+}
+
 body {
 	font-family: 'Fira Code', monospace;
 	background-color: var(--bg);
@@ -25,9 +30,8 @@ body {
 	display: flex;
 }
 
-h1, h2, ul {
-	padding: 0;
-	margin: 0;
+ul {
+	list-style: none;
 }
 
 main {
@@ -35,19 +39,23 @@ main {
 	padding: 1rem;
 }
 
-.icon {
+.menu .icon {
 	width: 1.2rem;
 	height: 1.2rem;
 }
 
 .sidebar {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	width: var(--sidebar-width);
 	position: fixed;
 	top: 0;
 	left: 0;
-	height: 100vh;
+	height: 100%;
 	overflow-y: auto;
 	border-right: 1px solid var(--surface);
+	padding: 1rem;
 }
 
 .menu {
@@ -55,15 +63,11 @@ main {
 	flex-direction: column;
 	align-items: center;
 	gap: 0.4rem;
-	margin-left: 1rem;
-	margin-right: 1rem;
-	padding-top: 1rem;
 }
 
 .menu li {
 	display: flex;
 	align-items: center;
-	list-style: none;
 	border-radius: 0.2rem;
 	padding: 0.4rem 0.8rem;
 	width: 100%;
@@ -86,6 +90,62 @@ main {
 }
 
 .menu li span {
-	margin-left: 0.6rem
+	margin-left: 0.6rem;
 }
 
+.socials {
+	display: flex;
+	gap: 1.2rem;
+}
+
+.socials .icon {
+	width: 1.4rem;
+	height: 1.4rem;
+}
+
+.socials li a {
+	text-decoration: none;
+	color: var(--surface-alt);
+}
+
+.socials li a:hover {
+	color: var(--orange);
+}
+
+@media only screen and (max-width: 600px) {
+	.sidebar {
+		width: 100%;
+		border-right: none;
+		border-top: 1px solid var(--surface);
+		position: fixed;
+		bottom: 0;
+		top: unset;
+		height: unset;
+	}
+
+	.menu {
+		flex-direction: row;
+	}
+
+	.menu li {
+		justify-content: center;
+	}
+
+	.menu li .icon, .socials {
+		display: none;
+	}
+
+	main, .menu li span {
+		margin-left: 0;
+	}
+}
+
+@media only screen and (max-width: 420px) {
+	.menu li .icon {
+		display: block;
+	}
+
+	.menu li span {
+		display: none;
+	}
+}

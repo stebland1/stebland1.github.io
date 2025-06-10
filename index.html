@@ -13,40 +13,57 @@
 <body>
   <header class="sidebar">
     <ul class="menu">
-      <li>
+      <li data-page="about">
         <svg class="icon">
           <use href="assets/svg/icons.svg#icon-user" />
         </svg>
         <span>about</span>
       </li>
-      <li>
+      <li data-page="portfolio">
         <svg class="icon">
           <use href="assets/svg/icons.svg#icon-wrench" />
         </svg>
         <span>portfolio</span>
       </li>
-      <li>
+      <li data-page="snippets">
         <svg class="icon">
           <use href="assets/svg/icons.svg#icon-code" />
         </svg>
         <span>snippets</span>
       </li>
-      <li>
+      <li data-page="contact">
         <svg class="icon">
           <use href="assets/svg/icons.svg#icon-at" />
         </svg>
         <span>contact</span>
       </li>
     </ul>
+
+    <ul class="socials">
+      <li>
+        <a href="https://github.com/stebland1" target="_blank">
+          <svg class="icon">
+            <use href="assets/svg/icons.svg#icon-github" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/stebland1" target="_blank">
+          <svg class="icon">
+            <use href="assets/svg/icons.svg#icon-linkedin" />
+          </svg>
+        </a>
+      </li>
+    </ul>
   </header>
 
-  <main>
-    <h2>Stephen Bland</h2>
-    <p>My corner of the web; for sharing code, ideas, and stuff that piques my interest.</p>
-    <p>Work in progress 🚧</p>
-  </main>
+  <main id="content"></main>
 
-  <script src="assets/js/scripts.js" />
+  <script src="http://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>
+    eruda.init();
+  </script>
+  <script src="assets/js/scripts.js"></script>
 </body>
 
 </html>
