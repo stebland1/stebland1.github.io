@@ -152,6 +152,10 @@ a {
 	#content, .menu li span {
 		margin-left: 0;
 	}
+
+	#content {
+		bottom: 4.25rem;
+	}
 }
 
 @media only screen and (max-width: 420px) {
