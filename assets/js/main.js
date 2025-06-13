@@ -40,6 +40,15 @@
         });
   }
 
+  /** @param {Pages} page */
+  async function handleLoadScripts(page) {
+    switch (page) {
+      case pages.PORTFOLIO:
+        await loadScript("assets/js/pages/portfolio.js");
+        break;
+    }
+  }
+
   /**
    * @async
    * @param {Pages} page - The page identifier.
@@ -71,6 +80,8 @@
 
       document.querySelector(".sidebar li.active")?.classList.remove("active");
       document.querySelector(`li[data-page=${page}]`).classList.add("active");
+
+      handleLoadScripts(page);
     } catch (err) {
       // @TODO: we're going to need a nice failure screen
       content.innerHTML = "<h1>Error loading page</h1>";

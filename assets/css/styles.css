@@ -126,6 +126,21 @@ a {
 	color: var(--orange);
 }
 
+.project {
+	box-sizing: border-box;
+	border: 1px solid var(--surface);
+	padding: 1rem;
+}
+
+.project * {
+	margin: 0;
+	padding: 0;
+}
+
+.project h3 {
+	margin-bottom: 0.8rem;
+}
+
 @media only screen and (max-width: 600px) {
 	.sidebar {
 		width: 100%;
@@ -167,3 +182,4 @@ a {
 		display: none;
 	}
 }
+
