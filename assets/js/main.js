@@ -54,6 +54,7 @@
     } catch (err) {
       // @TODO: we're going to need a nice failure screen
       content.innerHTML = "<h1>Error loading page</h1>";
+      console.error(err);
     }
   }
 
