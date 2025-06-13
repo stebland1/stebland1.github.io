@@ -39,7 +39,7 @@ a {
 	color: var(--orange);
 }
 
-main {
+#content {
 	margin-left: var(--sidebar-width);
 	padding: 1rem;
 }
@@ -140,7 +140,7 @@ main {
 		display: none;
 	}
 
-	main, .menu li span {
+	#content, .menu li span {
 		margin-left: 0;
 	}
 }
