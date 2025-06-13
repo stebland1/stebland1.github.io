@@ -106,5 +106,7 @@
     initVirtualList(projects);
   }
 
-  init();
+  window.Projects = {
+    init,
+  };
 })();
