@@ -81,7 +81,7 @@
       document.querySelector(".sidebar li.active")?.classList.remove("active");
       document.querySelector(`li[data-page=${page}]`).classList.add("active");
 
-      handleLoadScripts(page);
+      await handleLoadScripts(page);
     } catch (err) {
       // @TODO: we're going to need a nice failure screen
       content.innerHTML = "<h1>Error loading page</h1>";
