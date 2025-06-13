@@ -20,6 +20,26 @@
     return handleRoute(getPageFromHash(), opts);
   }
 
+  const loadedScripts = new Set();
+  /** @param {string} src */
+  function loadScript(src) {
+    return loadedScripts.has(src)
+      ? Promise.resolve()
+      : new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = src;
+          script.async = true;
+          script.onload = () => {
+            loadedScripts.add(src);
+            resolve();
+          };
+          script.onerror = () => {
+            reject(`Failed to load script: ${src}`);
+          };
+          document.body.appendChild(script);
+        });
+  }
+
   /**
    * @async
    * @param {Pages} page - The page identifier.
