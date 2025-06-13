@@ -45,6 +45,7 @@
     switch (page) {
       case pages.PORTFOLIO:
         await loadScript("assets/js/pages/portfolio.js");
+        window.Projects?.init();
         break;
     }
   }
