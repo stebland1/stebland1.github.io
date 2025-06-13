@@ -29,6 +29,8 @@ body {
 	color: var(--text);
 	display: flex;
 	line-height: 1.4;
+	height: 100%;
+	overflow-y: hidden;
 }
 
 ul {
@@ -42,6 +44,13 @@ a {
 #content {
 	margin-left: var(--sidebar-width);
 	padding: 1rem;
+	overflow-y: scroll;
+	position: absolute;
+	width: auto;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 
 .menu .icon {
