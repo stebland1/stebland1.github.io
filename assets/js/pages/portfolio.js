@@ -19,6 +19,19 @@
     return window.innerWidth < 600 ? 1 : 2;
   }
 
+  function getItemWidth(scrollContainer, numCols, gap) {
+    const totalGap = (numCols - 1) * gap;
+    const paddingLeft = parseFloat(
+      getComputedStyle(scrollContainer).paddingLeft,
+    );
+    const paddingRight = parseFloat(
+      getComputedStyle(scrollContainer).paddingRight,
+    );
+    const usableWidth =
+      scrollContainer.clientWidth - paddingLeft - paddingRight;
+    return (usableWidth - totalGap) / numCols;
+  }
+
   /**
    * @typedef {Object} Item
    * @property {string} title
@@ -29,33 +42,24 @@
    * @param {Array<Item>} items
    */
   function initVirtualList(items) {
+    const scrollContainer = document.getElementById("content");
     const buffer = 2;
     const itemHeight = 200;
     const gap = 16;
-    const numCols = getNumberOfColumns();
-    const numRows = Math.floor(items.length / numCols);
-    const scrollContainer = document.getElementById("content");
-    const paddingLeft = parseFloat(
-      getComputedStyle(scrollContainer).paddingLeft,
-    );
-    const paddingRight = parseFloat(
-      getComputedStyle(scrollContainer).paddingRight,
-    );
-    const usableWidth =
-      scrollContainer.clientWidth - paddingLeft - paddingRight;
-    const totalGap = (numCols - 1) * gap;
-    const itemWidth = (usableWidth - totalGap) / numCols;
+    let numCols = getNumberOfColumns();
+    let itemWidth = getItemWidth(scrollContainer, numCols, gap);
 
     const listContainer = document.createElement("div");
     listContainer.style.position = "relative";
+    let numRows = Math.ceil(items.length / numCols);
     listContainer.style.height = `${numRows * itemHeight + (numRows - 1) * gap}px`;
     document.querySelector("#content").appendChild(listContainer);
 
-    const poolSize =
+    let poolSize =
       (Math.ceil(scrollContainer.clientHeight / itemHeight) + buffer * 2) *
       numCols;
 
-    const pool = [];
+    let pool = [];
     for (let i = 0; i < poolSize; i++) {
       const div = document.createElement("div");
       listContainer.appendChild(div);
@@ -96,8 +100,33 @@
       }
     }
 
+    function resizeVirtualList() {
+      const newNumCols = getNumberOfColumns();
+      itemWidth = getItemWidth(scrollContainer, newNumCols, gap);
+
+      if (newNumCols != numCols) {
+        numCols = newNumCols;
+        numRows = Math.ceil(items.length / numCols);
+
+        poolSize =
+          (Math.ceil(scrollContainer.clientHeight / itemHeight) + buffer * 2) *
+          numCols;
+        pool.forEach((div) => div.remove());
+        pool = [];
+        for (let i = 0; i < poolSize; i++) {
+          const div = document.createElement("div");
+          listContainer.appendChild(div);
+          pool.push(div);
+        }
+
+        listContainer.style.height = `${itemHeight * numRows + (numRows - 1) * gap}px`;
+      }
+
+      renderVirtualList();
+    }
+
     scrollContainer.addEventListener("scroll", renderVirtualList);
-    scrollContainer.addEventListener("resize", renderVirtualList);
+    window.addEventListener("resize", resizeVirtualList);
     renderVirtualList();
   }
 
