@@ -3,7 +3,7 @@ export default [
     files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: "script", // Or 'module' if you're using ES modules
+      sourceType: "module",
       globals: {
         window: "readonly",
         document: "readonly",
