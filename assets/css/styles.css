@@ -10,7 +10,6 @@
   --red: #fb4934;
   --purple: #d3869b;
   --blue: #83a598;
-
 	--sidebar-width: 12rem;
 }
 
@@ -39,6 +38,12 @@ ul {
 
 a {
 	color: var(--orange);
+}
+
+a:focus, a:active {
+	outline: 0;
+	border: none;
+	-webkit-tap-highlight-color: transparent;
 }
 
 #content {
@@ -80,11 +85,16 @@ a {
 }
 
 .menu li {
-	display: flex;
-	align-items: center;
 	border-radius: 0.2rem;
 	padding: 0.4rem 0.8rem;
 	width: 100%;
+}
+
+.menu li a {
+	text-decoration: none;
+	color: unset;
+	display: flex;
+	align-items: center;
 }
 
 .menu li.active {
@@ -156,7 +166,7 @@ a {
 		flex-direction: row;
 	}
 
-	.menu li {
+	.menu li a {
 		justify-content: center;
 	}
 

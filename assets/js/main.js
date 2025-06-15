@@ -114,6 +114,7 @@
           e.currentTarget.dataset.page !==
             (location.hash.slice(1) || pages.ABOUT)
         ) {
+          e.preventDefault();
           handleRoute(e.currentTarget.dataset.page);
         }
       },
