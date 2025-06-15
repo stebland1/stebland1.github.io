@@ -1,8 +1,9 @@
 {
-  "compilerOptions": {
-    "checkJs": true,
-    "target": "ES2021",
-    "allowJs": true
-  },
-  "include": ["./**/*.js"]
+	"compilerOptions": {
+		"checkJs": true,
+		"target": "es2020",
+		"module": "esnext",
+		"allowJs": true
+	},
+	"include": ["./**/*.js"]
 }

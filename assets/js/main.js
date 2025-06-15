@@ -1,5 +1,3 @@
-import { init as initVirtualList } from "./pages/portfolio.js";
-
 /** @typedef {'about' | 'portfolio' | 'snippets' | 'contact'} Pages */
 
 /** @constant */
@@ -25,7 +23,15 @@ function loadFromHash(opts) {
 async function handleLoadScripts(page) {
   switch (page) {
     case pages.PORTFOLIO:
-      initVirtualList();
+      const [{ fetchProjects }, { VirtualList }] = await Promise.all([
+        import("./pages/portfolio.js"),
+        import("./virtual-list.js"),
+      ]);
+
+      const projects = await fetchProjects();
+      new VirtualList(document.getElementById("content"), projects, {
+        getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
+      });
       break;
   }
 }
