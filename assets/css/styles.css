@@ -136,18 +136,26 @@ a:focus, a:active {
 	color: var(--orange);
 }
 
-.project {
+.projects-item {
 	box-sizing: border-box;
 	border: 1px solid var(--surface);
+	border-radius: 0.2rem;
 	padding: 1rem;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.project * {
+.projects-item img {
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
+}
+
+.projects-item * {
 	margin: 0;
 	padding: 0;
 }
 
-.project h3 {
+.projects-item h3 {
 	margin-bottom: 0.8rem;
 }
 

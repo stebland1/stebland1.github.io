@@ -30,6 +30,7 @@ async function handleLoadScripts(page) {
 
       const projects = await fetchProjects();
       new VirtualList(document.getElementById("content"), projects, {
+        className: "projects",
         getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
       });
       break;
