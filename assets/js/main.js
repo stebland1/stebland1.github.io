@@ -24,7 +24,7 @@ async function handleLoadScripts(page) {
   switch (page) {
     case pages.PORTFOLIO:
       const [{ fetchProjects }, { VirtualList }] = await Promise.all([
-        import("./pages/portfolio.js"),
+        import("./projects.js"),
         import("./virtual-list.js"),
       ]);
 
