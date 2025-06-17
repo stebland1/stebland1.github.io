@@ -1,10 +1,10 @@
-/** @typedef {'about' | 'portfolio' | 'snippets' | 'contact'} Pages */
+/** @typedef {'about' | 'portfolio' | 'blog' | 'contact'} Pages */
 
 /** @constant */
 const pages = {
   ABOUT: "about",
   PORTFOLIO: "portfolio",
-  SNIPPETS: "snippets",
+  BLOG: "blog",
   CONTACT: "contact",
 };
 const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
