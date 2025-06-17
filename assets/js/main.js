@@ -31,7 +31,16 @@ async function handleLoadScripts(page) {
       const projects = await fetchProjects();
       new VirtualList(document.getElementById("content"), projects, {
         className: "projects",
+        itemHeight: 170,
+        gap: 16,
         getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
+        renderItem: (item) => {
+          return `
+						<h3>${item.title}</h3>
+						${!!item.tags?.length ? '<div class="tags">' + item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("") + "</div>" : ""}
+						<p>${item.text}</p>
+					`;
+        },
       });
       break;
   }

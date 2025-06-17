@@ -3,12 +3,13 @@
 		"id": 1,
 		"title": "flashcards.nvim",
 		"img": "",
-		"tags": ["nvim"],
+		"tags": ["nvim", "lua"],
 		"text": "An extendable Neovim plugin designed to reinforce learning."
 	},
 	{
 		"id": 2,
 		"title": "HTTP Server",
+		"tags": ["c"],
 		"img": "",
 		"text": "An extendable Neovim plugin designed to reinforce learning."
 	},
@@ -16,7 +17,7 @@
 		"id": 3,
 		"title": "Tetris",
 		"img": "",
-		"tags": ["c"],
+		"tags": ["c", "cli"],
 		"text": "An extendable Neovim plugin designed to reinforce learning."
 	},
 	{
@@ -25,47 +26,5 @@
 		"img": "",
 		"tags": ["js"],
 		"text": "This site."
-	},
-	{
-		"id": 1,
-		"title": "flashcards.nvim",
-		"img": "",
-		"tags": ["nvim"],
-		"text": "An extendable Neovim plugin designed to reinforce learning."
-	},
-	{
-		"id": 1,
-		"title": "flashcards.nvim",
-		"img": "",
-		"tags": ["nvim"],
-		"text": "An extendable Neovim plugin designed to reinforce learning."
-	},
-	{
-		"id": 1,
-		"title": "flashcards.nvim",
-		"img": "",
-		"tags": ["nvim"],
-		"text": "An extendable Neovim plugin designed to reinforce learning."
-	},
-	{
-		"id": 1,
-		"title": "flashcards.nvim",
-		"img": "",
-		"tags": ["nvim"],
-		"text": "An extendable Neovim plugin designed to reinforce learning."
-	},
-	{
-		"id": 1,
-		"title": "flashcards.nvim",
-		"img": "",
-		"tags": ["nvim"],
-		"text": "An extendable Neovim plugin designed to reinforce learning."
-	},
-	{
-		"id": 1,
-		"title": "flashcards.nvim",
-		"img": "",
-		"tags": ["nvim"],
-		"text": "An extendable Neovim plugin designed to reinforce learning."
 	}
 ]
