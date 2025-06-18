@@ -3,6 +3,7 @@
 		"id": 1,
 		"title": "flashcards.nvim",
 		"img": "",
+		"wip": true,
 		"tags": ["nvim", "lua"],
 		"text": "An extendable Neovim plugin designed to reinforce learning."
 	},
@@ -24,6 +25,7 @@
 		"id": 4,
 		"title": "Personal site",
 		"img": "",
+		"wip": true,
 		"tags": ["js"],
 		"text": "This site."
 	}

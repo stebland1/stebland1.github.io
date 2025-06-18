@@ -18,7 +18,7 @@
 	box-sizing: border-box;
 }
 
-h1, h2, ul {
+h1, h2, h3, ul {
 	padding: 0;
 	margin: 0;
 }
@@ -31,6 +31,11 @@ body {
 	line-height: 1.4;
 	height: 100%;
 	overflow-y: hidden;
+}
+
+.preload * {
+	transition: none !important;
+	animation-duration: 0.001s !important;
 }
 
 ul {
@@ -143,6 +148,16 @@ a:focus, a:active {
 	border-radius: 0.2rem;
 	padding: 1rem;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	transition-property: transform, box-shadow, border-color;
+	transition-duration: 0.4s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+#virtual-list .list-item:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+	border-color: var(--yellow);
+}
 }
 
 #virtual-list .list-item:hover h3 {
@@ -176,11 +191,6 @@ a:focus, a:active {
 	width: 100%;
 	height: 100px;
 	object-fit: cover;
-}
-
-#virtual-list .list-item * {
-	margin: 0;
-	padding: 0;
 }
 
 #virtual-list .list-item h3 {

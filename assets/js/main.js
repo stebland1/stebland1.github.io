@@ -54,6 +54,7 @@ async function handleLoadScripts(page) {
  */
 async function handleRoute(page, opts = { navType: "push" }) {
   const content = document.querySelector("#content");
+  content.classList.add("preload");
 
   try {
     const res = await fetch(`pages/${page}.html`);
@@ -79,6 +80,7 @@ async function handleRoute(page, opts = { navType: "push" }) {
     document.querySelector(`li[data-page=${page}]`).classList.add("active");
 
     await handleLoadScripts(page);
+    content.classList.remove("preload");
   } catch (err) {
     // @TODO: we're going to need a nice failure screen
     content.innerHTML = "<h1>Error loading page</h1>";
