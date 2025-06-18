@@ -8,6 +8,7 @@ export class VirtualList {
 
   /**
    * @typedef {Object} VirtualListOptions
+   * @property {String} [id] The ID to attach to the list container.
    * @property {String} [className] The class name to attach to the list container.
    * @property {Number} [itemHeight=200] Fixed height of items in pixels.
    * @property {Number} [buffer=2] Number of additional rows to render above and below the viewport.
@@ -25,6 +26,7 @@ export class VirtualList {
     scrollContainer,
     items,
     {
+      id = "virtual-list",
       className,
       itemHeight = 200,
       buffer = 2,
@@ -47,6 +49,7 @@ export class VirtualList {
     if (className) {
       this.listContainer.classList.add(className);
     }
+    this.listContainer.id = id;
     this.className = className;
     this.listContainer.style.position = "relative";
     this.listContainer.style.height = `${this.listHeight}px`;
@@ -124,9 +127,7 @@ export class VirtualList {
       const col = idx % this.numCols;
       const row = Math.floor(idx / this.numCols);
 
-      if (this.className) {
-        domEl.classList.add(`${this.className}-item`);
-      }
+      domEl.classList.add("list-item");
       domEl.style.display = "block";
       domEl.style.position = "absolute";
       domEl.style.height = `${this.itemHeight}px`;
