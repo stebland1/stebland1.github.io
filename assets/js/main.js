@@ -43,6 +43,24 @@ async function handleLoadScripts(page) {
       });
       break;
     }
+    case pages.BLOG: {
+      const { VirtualList } = await import("./virtual-list.js");
+      const api = new FetchService("/api");
+      const posts = await api.get("/blog-posts.json");
+      new VirtualList(document.getElementById("content"), posts, {
+        className: "blog",
+        itemHeight: 200,
+        gap: 16,
+        renderItem: (item) => {
+          return `
+						<h3>${item.title}</h3>
+						<span class="date">${item.date}</span>
+						<p>${item.excerpt}</p>
+					`;
+        },
+      });
+      break;
+    }
   }
 }
 
