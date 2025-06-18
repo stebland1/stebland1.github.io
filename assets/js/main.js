@@ -1,3 +1,5 @@
+import { FetchService } from "./utils/fetch-service.js";
+
 /** @typedef {'about' | 'portfolio' | 'blog' | 'contact'} Pages */
 
 /** @constant */
@@ -8,6 +10,7 @@ const pages = {
   CONTACT: "contact",
 };
 const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
+const api = new FetchService("/api");
 
 /** @returns {Pages} */
 function getPageFromHash() {
@@ -22,13 +25,9 @@ function loadFromHash(opts) {
 /** @param {Pages} page */
 async function handleLoadScripts(page) {
   switch (page) {
-    case pages.PORTFOLIO:
-      const [{ fetchProjects }, { VirtualList }] = await Promise.all([
-        import("./projects.js"),
-        import("./virtual-list.js"),
-      ]);
-
-      const projects = await fetchProjects();
+    case pages.PORTFOLIO: {
+      const { VirtualList } = await import("./virtual-list.js");
+      const projects = await api.get("/portfolio-projects.json");
       new VirtualList(document.getElementById("content"), projects, {
         className: "projects",
         itemHeight: 170,
@@ -43,6 +42,7 @@ async function handleLoadScripts(page) {
         },
       });
       break;
+    }
   }
 }
 
