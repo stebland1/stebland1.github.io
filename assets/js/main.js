@@ -22,45 +22,68 @@ function loadFromHash(opts) {
   return handleRoute(getPageFromHash(), opts);
 }
 
-/** @param {Pages} page */
-async function handleLoadScripts(page) {
-  switch (page) {
-    case pages.PORTFOLIO: {
-      const { VirtualList } = await import("./virtual-list.js");
-      const projects = await api.get("/portfolio-projects.json");
-      new VirtualList(document.getElementById("content"), projects, {
+/** @param {Object} item */
+const renderProjectItem = (item) => {
+  return `
+		${item.wip ? '<span class="wip">WIP</span>' : ""}
+		<h3>${item.title}</h3>
+		${!!item.tags?.length ? '<div class="tags">' + item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("") + "</div>" : ""}
+		<p>${item.text}</p>
+		<span class="more">Read more -></span>
+	`;
+};
+
+/** @param {Object} item */
+const renderBlogItem = (item) => {
+  return `
+		<h3>${item.title}</h3>
+		<span class="date">${item.date}</span>
+		<p>${item.excerpt}</p>
+	`;
+};
+
+const handlersMap = {
+  [pages.PORTFOLIO]: async () => {
+    const { VirtualList } = await import("./virtual-list.js");
+    const projects = await api.get("/portfolio-projects.json");
+    const { destroy } = new VirtualList(
+      document.getElementById("content"),
+      projects,
+      {
         className: "projects",
         itemHeight: 170,
         gap: 16,
         getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
-        renderItem: (item) => {
-          return `
-						<h3>${item.title}</h3>
-						${!!item.tags?.length ? '<div class="tags">' + item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("") + "</div>" : ""}
-						<p>${item.text}</p>
-					`;
-        },
-      });
-      break;
-    }
-    case pages.BLOG: {
-      const { VirtualList } = await import("./virtual-list.js");
-      const api = new FetchService("/api");
-      const posts = await api.get("/blog-posts.json");
-      new VirtualList(document.getElementById("content"), posts, {
+        renderItem: renderProjectItem,
+      },
+    );
+
+    return destroy;
+  },
+  [pages.BLOG]: async () => {
+    const { VirtualList } = await import("./virtual-list.js");
+    const api = new FetchService();
+    const posts = await api.get("/posts.json");
+    const { destroy } = new VirtualList(
+      document.getElementById("content"),
+      posts,
+      {
         className: "blog",
         itemHeight: 200,
         gap: 16,
-        renderItem: (item) => {
-          return `
-						<h3>${item.title}</h3>
-						<span class="date">${item.date}</span>
-						<p>${item.excerpt}</p>
-					`;
-        },
-      });
-      break;
-    }
+        renderItem: renderBlogItem,
+      },
+    );
+
+    return destroy;
+  },
+};
+
+/** @param {Pages} page */
+async function handleLoadScripts(page) {
+  const handler = handlersMap[page];
+  if (typeof handler == "function") {
+    await handler();
   }
 }
 
