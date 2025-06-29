@@ -1,0 +1,44 @@
+[
+	{
+		"slug": "creating-a-virtualised-list-in-vanilla-js",
+		"title": "Creating a virtualised list in vanilla JS",
+		"date": "03.08.2025",
+		"tags": ["js"],
+		"excerpt": "Creating a virtual list component from the ground up was both a challenging and enlightening experience. In this post, I'll share what I learned throughout the process — from performance optimizations to rendering tricks and everything in between.\n\n---\n\n## \ud83e\udde0 Why I Decided to Build My Own\n\nI initially considered using an existing library like `react-window` or `react-virtualized`, but I wanted to really understand how virtual lists work under the hood."
+	},
+	{
+		"slug": "creating-a-virtualised-list-in-vanilla-js",
+		"title": "Creating a virtualised list in vanilla JS",
+		"date": "03.08.2025",
+		"tags": ["js"],
+		"excerpt": "Creating a virtual list component from the ground up was both a challenging and enlightening experience. In this post, I'll share what I learned throughout the process — from performance optimizations to rendering tricks and everything in between.\n\n---\n\n## \ud83e\udde0 Why I Decided to Build My Own\n\nI initially considered using an existing library like `react-window` or `react-virtualized`, but I wanted to really understand how virtual lists work under the hood."
+	},
+	{
+		"slug": "creating-a-virtualised-list-in-vanilla-js",
+		"title": "Creating a virtualised list in vanilla JS",
+		"date": "03.08.2025",
+		"tags": ["js"],
+		"excerpt": "Creating a virtual list component from the ground up was both a challenging and enlightening experience. In this post, I'll share what I learned throughout the process — from performance optimizations to rendering tricks and everything in between.\n\n---\n\n## \ud83e\udde0 Why I Decided to Build My Own\n\nI initially considered using an existing library like `react-window` or `react-virtualized`, but I wanted to really understand how virtual lists work under the hood."
+	},
+	{
+		"slug": "creating-a-virtualised-list-in-vanilla-js",
+		"title": "Creating a virtualised list in vanilla JS",
+		"date": "03.08.2025",
+		"tags": ["js"],
+		"excerpt": "Creating a virtual list component from the ground up was both a challenging and enlightening experience. In this post, I'll share what I learned throughout the process — from performance optimizations to rendering tricks and everything in between.\n\n---\n\n## \ud83e\udde0 Why I Decided to Build My Own\n\nI initially considered using an existing library like `react-window` or `react-virtualized`, but I wanted to really understand how virtual lists work under the hood."
+	},
+	{
+		"slug": "creating-a-virtualised-list-in-vanilla-js",
+		"title": "Creating a virtualised list in vanilla JS",
+		"date": "03.08.2025",
+		"tags": ["js"],
+		"excerpt": "Creating a virtual list component from the ground up was both a challenging and enlightening experience. In this post, I'll share what I learned throughout the process — from performance optimizations to rendering tricks and everything in between.\n\n---\n\n## \ud83e\udde0 Why I Decided to Build My Own\n\nI initially considered using an existing library like `react-window` or `react-virtualized`, but I wanted to really understand how virtual lists work under the hood."
+	},
+	{
+		"slug": "creating-a-virtualised-list-in-vanilla-js",
+		"title": "Creating a virtualised list in vanilla JS",
+		"date": "03.08.2025",
+		"tags": ["js"],
+		"excerpt": "Creating a virtual list component from the ground up was both a challenging and enlightening experience. In this post, I'll share what I learned throughout the process — from performance optimizations to rendering tricks and everything in between.\n\n---\n\n## \ud83e\udde0 Why I Decided to Build My Own\n\nI initially considered using an existing library like `react-window` or `react-virtualized`, but I wanted to really understand how virtual lists work under the hood."
+	}
+]
