@@ -1,0 +1,3 @@
+[submodule "tools/markdown-parser"]
+	path = tools/markdown-parser
+	url = https://github.com/stebland1/markdown-parser.git
