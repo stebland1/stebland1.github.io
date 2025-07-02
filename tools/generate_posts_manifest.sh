@@ -12,6 +12,8 @@ mkdir -p "$posts_dst"
 rm -rf "$posts_dst"*
 cp "$posts_src"/*.md "$posts_dst"
 
+(cd "$SCRIPT_DIR"/markdown-parser && make >/dev/null)
+
 echo '[' >"$output_file"
 first=true
 for file in "$posts_dst"*.md; do
