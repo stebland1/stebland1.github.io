@@ -212,15 +212,21 @@ a:focus, a:active {
 	display: flex;
 	gap: 0.4rem;
 	margin-bottom: 0.8rem;
+	font-size: 0.875rem;
 }
 
 #virtual-list .list-item .tag {
 	background-color: var(--surface);
 	padding: 0.4rem;
 	border-radius: 0.2rem;
-	display: inline-block;
 	min-width: 2rem;
+	max-width: 6rem;
 	text-align: center;
+	display: block;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .projects-item img {
