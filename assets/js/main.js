@@ -12,6 +12,8 @@ const pages = {
 const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
 const api = new FetchService("/api");
 
+let cleanup = null;
+
 /** @returns {Pages} */
 function getPageFromHash() {
   return /** @type {Pages} */ (location.hash.slice(1) || pages.ABOUT);
@@ -47,36 +49,28 @@ const handlersMap = {
   [pages.PORTFOLIO]: async () => {
     const { VirtualList } = await import("./virtual-list.js");
     const projects = await api.get("/portfolio-projects.json");
-    const { destroy } = new VirtualList(
-      document.getElementById("content"),
-      projects,
-      {
-        className: "projects",
-        itemHeight: 170,
-        gap: 16,
-        getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
-        renderItem: renderProjectItem,
-      },
-    );
+    const list = new VirtualList(document.getElementById("content"), projects, {
+      className: "projects",
+      itemHeight: 170,
+      gap: 16,
+      getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
+      renderItem: renderProjectItem,
+    });
 
-    return destroy;
+    return list.destroy.bind(list);
   },
   [pages.BLOG]: async () => {
     const { VirtualList } = await import("./virtual-list.js");
     const api = new FetchService();
     const posts = await api.get("/posts.json");
-    const { destroy } = new VirtualList(
-      document.getElementById("content"),
-      posts,
-      {
-        className: "blog",
-        itemHeight: 200,
-        gap: 16,
-        renderItem: renderBlogItem,
-      },
-    );
+    const list = new VirtualList(document.getElementById("content"), posts, {
+      className: "blog",
+      itemHeight: 200,
+      gap: 16,
+      renderItem: renderBlogItem,
+    });
 
-    return destroy;
+    return list.destroy.bind(list);
   },
 };
 
@@ -84,7 +78,7 @@ const handlersMap = {
 async function handleLoadScripts(page) {
   const handler = handlersMap[page];
   if (typeof handler == "function") {
-    await handler();
+    cleanup = await handler();
   }
 }
 
@@ -97,6 +91,11 @@ async function handleLoadScripts(page) {
 async function handleRoute(page, opts = { navType: "push" }) {
   const content = document.querySelector("#content");
   content.classList.add("preload");
+
+  if (typeof cleanup == "function") {
+    cleanup();
+    cleanup = null;
+  }
 
   try {
     const res = await fetch(`pages/${page}.html`);
