@@ -160,6 +160,6 @@ export class VirtualList {
     this.scrollContainer.removeEventListener("scroll", this.onScroll);
     window.removeEventListener("resize", this.onResize);
     this.clearPool();
-    this.scrollContainer.remove();
+    this.listContainer.remove();
   }
 }
