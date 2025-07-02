@@ -229,12 +229,23 @@ a:focus, a:active {
 	object-fit: cover;
 }
 
+#virtual-list .list-item p {
+	font-size: 0.875rem;
+}
+
 #virtual-list.projects .list-item h3 {
 	margin-bottom: 0.8rem;
 }
 
+#virtual-list.blog .list-item h3 {
+	margin-bottom: 0.2rem;
+}
+
 #virtual-list.blog .date {
 	color: var(--text-muted);
+	font-size: 0.75rem;
+	display: block;
+	margin-bottom: 0.75rem;
 }
 
 #virtual-list.blog .list-item:hover {

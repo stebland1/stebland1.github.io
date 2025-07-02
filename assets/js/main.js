@@ -37,8 +37,9 @@ const renderProjectItem = (item) => {
 const renderBlogItem = (item) => {
   return `
 		<h3>${item.title}</h3>
-		<span class="date">${item.date}</span>
-		<p>${item.excerpt}</p>
+		<time class="date" datetime="${item.date}">${item.date}</time>
+		${!!item.tags?.length ? '<div class="tags">' + item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("") + "</div>" : ""}
+		<p>${item.summary}</p>
 	`;
 };
 
