@@ -92,7 +92,6 @@ a:focus, a:active {
 
 .menu li {
 	border-radius: 0.2rem;
-	padding: 0.4rem 0.8rem;
 	width: 100%;
 }
 
@@ -101,6 +100,7 @@ a:focus, a:active {
 	color: unset;
 	display: flex;
 	align-items: center;
+	padding: 0.4rem 0.8rem;
 }
 
 .menu li.active {
