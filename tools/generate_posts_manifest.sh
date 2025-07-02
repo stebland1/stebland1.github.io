@@ -14,7 +14,7 @@ cp "$posts_src"/*.md "$posts_dst"
 
 (cd "$SCRIPT_DIR"/markdown-parser && make >/dev/null)
 
-echo '[' >"$output_file"
+echo -n '[' >"$output_file"
 first=true
 for file in "$posts_dst"*.md; do
 	json=$("$SCRIPT_DIR"/markdown-parser/build/mdparser "$file")
@@ -22,9 +22,9 @@ for file in "$posts_dst"*.md; do
 	if [ "$first" = true ]; then
 		first=false
 	else
-		echo "," >>"$output_file"
+		echo -n "," >>"$output_file"
 	fi
 
-	echo "$json" >>"$output_file"
+	echo -n "$json" >>"$output_file"
 done
-echo ']' >>"$output_file"
+echo -n ']' >>"$output_file"
