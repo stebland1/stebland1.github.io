@@ -146,12 +146,12 @@ for (const link of sidebarMenuItems) {
     "click",
     /** @param {Event} e */
     (e) => {
+      e.preventDefault();
       if (
         e.currentTarget instanceof HTMLElement &&
         isPage(e.currentTarget.dataset.page) &&
         e.currentTarget.dataset.page !== (location.hash.slice(1) || pages.ABOUT)
       ) {
-        e.preventDefault();
         handleRoute(e.currentTarget.dataset.page);
       }
     },
