@@ -20,7 +20,7 @@ export const renderVirtualList = async (
 const projectItem = (item) => {
   return h(
     "article",
-    { className: "project" },
+    { className: "card project" },
     h("span", { className: "wip" }, "WIP"),
     h("h3", {}, item.title),
     h(
@@ -29,6 +29,7 @@ const projectItem = (item) => {
       ...item.tags.map((tag) => h("span", { className: "tag" }, tag)),
     ),
     h("p", {}, item.text),
+    h("span", { className: "more" }, "Read more ->"),
   );
 };
 
@@ -36,7 +37,6 @@ export const portfolioLoader = async () => {
   const api = new FetchService("api");
   const projects = await api.get("/portfolio-projects.json");
   return renderVirtualList(projects, {
-    className: "projects",
     itemHeight: 170,
     gap: 16,
     getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
@@ -45,10 +45,10 @@ export const portfolioLoader = async () => {
 };
 
 /** @param {Object} item */
-const renderBlogItem = (item) => {
+const blogItem = (item) => {
   return h(
     "article",
-    { className: "post" },
+    { className: "card post" },
     h("h3", {}, item.title),
     h("time", { className: "date", dateTime: item.date }, item.date),
     h(
@@ -64,9 +64,8 @@ export const blogLoader = async () => {
   const api = new FetchService();
   const posts = await api.get("/posts.json");
   return renderVirtualList(posts, {
-    className: "blog",
     itemHeight: 200,
     gap: 16,
-    renderItem: renderBlogItem,
+    renderItem: blogItem,
   });
 };

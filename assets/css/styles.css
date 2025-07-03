@@ -142,7 +142,9 @@ a:focus, a:active {
 	color: var(--orange);
 }
 
-#virtual-list .list-item {
+.card {
+	position: relative;
+	height: 100%;
 	border: 1px solid var(--surface);
 	background-color: var(--bg-alt);
 	border-radius: 0.2rem;
@@ -153,13 +155,13 @@ a:focus, a:active {
 	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-#virtual-list .list-item:hover {
+.card:hover {
 	transform: translateY(-5px);
 	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 	border-color: var(--yellow);
 }
 
-#virtual-list .list-item .more {
+.card .more {
 	color: var(--yellow);
 	background: #282828;
 	background: linear-gradient(90deg, rgba(40, 40, 40, 0) 0%, rgba(40, 40, 40, 1) 30%);
@@ -172,11 +174,11 @@ a:focus, a:active {
 	transition: opacity 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-#virtual-list .list-item:hover .more {
+.card:hover .more {
 	opacity: 1;
 }
 
-.projects .wip {
+.project .wip {
 	background-color: var(--yellow);
 	color: var(--bg);
 	display: inline-block;
@@ -189,33 +191,33 @@ a:focus, a:active {
 	font-size: 0.8rem;
 }
 
-#virtual-list .list-item:hover h3 {
+.card:hover h3 {
 	text-decoration: underline;
 }
 
-#virtual-list .list-item p {
+.card p {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-#virtual-list.projects .list-item p {
+.project p {
 	-webkit-line-clamp: 2;
 }
 
-#virtual-list.blog .list-item p {
+.post p {
 	-webkit-line-clamp: 4;
 }
 
-#virtual-list .list-item .tags {
+.tags {
 	display: flex;
 	gap: 0.4rem;
 	margin-bottom: 0.8rem;
 	font-size: 0.875rem;
 }
 
-#virtual-list .list-item .tag {
+.tag {
 	background-color: var(--surface);
 	padding: 0.4rem;
 	border-radius: 0.2rem;
@@ -229,32 +231,26 @@ a:focus, a:active {
 	white-space: nowrap;
 }
 
-.projects-item img {
-	width: 100%;
-	height: 100px;
-	object-fit: cover;
-}
-
-#virtual-list .list-item p {
+.card p {
 	font-size: 0.875rem;
 }
 
-#virtual-list.projects .list-item h3 {
+.project h3 {
 	margin-bottom: 0.8rem;
 }
 
-#virtual-list.blog .list-item h3 {
+.post h3 {
 	margin-bottom: 0.2rem;
 }
 
-#virtual-list.blog .date {
+.post .date {
 	color: var(--text-muted);
 	font-size: 0.75rem;
 	display: block;
 	margin-bottom: 0.75rem;
 }
 
-#virtual-list.blog .list-item:hover {
+.post:hover {
 	border-color: var(--green)
 }
 

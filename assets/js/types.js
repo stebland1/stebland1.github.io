@@ -7,8 +7,6 @@
 
 /**
  * @typedef {Object} VirtualListOptions
- * @property {String} [id] The ID to attach to the list container.
- * @property {String} [className] The class name to attach to the list container.
  * @property {Number} [itemHeight=200] Fixed height of items in pixels.
  * @property {Number} [buffer=2] Number of additional rows to render above and below the viewport.
  * @property {Number} [gap=16] The number of pixels spacing between elements.

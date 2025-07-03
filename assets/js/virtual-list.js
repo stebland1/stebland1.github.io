@@ -10,8 +10,6 @@ export class VirtualList {
     scrollContainer,
     items,
     {
-      id = "virtual-list",
-      className,
       itemHeight = 200,
       buffer = 2,
       gap = 16,
@@ -30,11 +28,6 @@ export class VirtualList {
     this.renderItem = renderItem || this.defaultRenderItem;
 
     this.listContainer = document.createElement("div");
-    if (className) {
-      this.listContainer.classList.add(className);
-    }
-    this.listContainer.id = id;
-    this.className = className;
     this.listContainer.style.position = "relative";
     this.listContainer.style.height = `${this.listHeight}px`;
     this.scrollContainer.appendChild(this.listContainer);
