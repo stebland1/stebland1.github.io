@@ -1,4 +1,5 @@
 import { FetchService } from "./utils/fetch-service.js";
+import { h } from "./utils/hyperscript.js";
 
 /**
  * @param {Array} items
@@ -16,14 +17,19 @@ export const renderVirtualList = async (
 };
 
 /** @param {Object} item */
-const renderProjectItem = (item) => {
-  return `
-		${item.wip ? '<span class="wip">WIP</span>' : ""}
-		<h3>${item.title}</h3>
-		${!!item.tags?.length ? '<div class="tags">' + item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("") + "</div>" : ""}
-		<p>${item.text}</p>
-		<span class="more">Read more -></span>
-	`;
+const projectItem = (item) => {
+  return h(
+    "article",
+    { className: "project" },
+    h("span", { className: "wip" }, "WIP"),
+    h("h3", {}, item.title),
+    h(
+      "div",
+      { className: "tags" },
+      ...item.tags.map((tag) => h("span", { className: "tag" }, tag)),
+    ),
+    h("p", {}, item.text),
+  );
 };
 
 export const portfolioLoader = async () => {
@@ -34,18 +40,24 @@ export const portfolioLoader = async () => {
     itemHeight: 170,
     gap: 16,
     getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
-    renderItem: renderProjectItem,
+    renderItem: projectItem,
   });
 };
 
 /** @param {Object} item */
 const renderBlogItem = (item) => {
-  return `
-		<h3>${item.title}</h3>
-		<time class="date" datetime="${item.date}">${item.date}</time>
-		${!!item.tags?.length ? '<div class="tags">' + item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("") + "</div>" : ""}
-		<p>${item.summary}</p>
-	`;
+  return h(
+    "article",
+    { className: "post" },
+    h("h3", {}, item.title),
+    h("time", { className: "date", dateTime: item.date }, item.date),
+    h(
+      "div",
+      { className: "tags" },
+      ...item.tags.map((tag) => h("span", { className: "tag" }, tag)),
+    ),
+    h("p", {}, item.summary),
+  );
 };
 
 export const blogLoader = async () => {

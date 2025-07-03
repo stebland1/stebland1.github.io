@@ -1,3 +1,5 @@
+import { h } from "./utils/hyperscript.js";
+
 export class VirtualList {
   /**
    * @param {HTMLElement} scrollContainer
@@ -73,10 +75,7 @@ export class VirtualList {
 
   /** @type {import("./types").RenderItemCallback} */
   defaultRenderItem(item) {
-    return `
-			<h3>${item.title}</h3>
-			<p>${item.text}</p>
-		`;
+    return h("article", {}, h("h3", {}, item.title), h("p", {}, item.text));
   }
 
   createPool() {
@@ -116,7 +115,8 @@ export class VirtualList {
       domEl.style.width = `${this.itemWidth}px`;
       domEl.style.top = `${row * (this.itemHeight + this.gap)}px`;
       domEl.style.left = `${col * (this.itemWidth + this.gap)}px`;
-      domEl.innerHTML = this.renderItem(item, idx);
+      domEl.innerHTML = "";
+      domEl.appendChild(this.renderItem(item, idx));
     }
   }
 

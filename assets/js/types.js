@@ -2,7 +2,7 @@
  * @callback RenderItemCallback
  * @param {Object} item
  * @param {Number} index
- * @returns {String}
+ * @returns {HTMLElement}
  */
 
 /**
