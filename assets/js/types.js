@@ -16,4 +16,15 @@
  * @property {RenderItemCallback} [renderItem] Optional custom render function that returns the HTML to render.
  */
 
+/** @typedef {'about' | 'portfolio' | 'blog' | 'contact'} Page */
+
+/** @typedef {(options?: any) => (void | (() => void) | Promise<void>)} RouteLoader */
+
+/**
+ * @typedef {{
+ *   path: string,
+ *   load: RouteLoader
+ * }} RouteConfig
+ */
+
 export {};

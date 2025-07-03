@@ -1,28 +1,20 @@
+import { Router } from "./router.js";
 import { FetchService } from "./utils/fetch-service.js";
 
-/** @typedef {'about' | 'portfolio' | 'blog' | 'contact'} Pages */
-
-/** @constant */
-const pages = {
-  ABOUT: "about",
-  PORTFOLIO: "portfolio",
-  BLOG: "blog",
-  CONTACT: "contact",
+/**
+ * @param {Array} items
+ * @param {import("./types").VirtualListOptions} [options]
+ * @param {HTMLElement} [scrollContainer]
+ */
+const renderVirtualList = async (
+  items,
+  options,
+  scrollContainer = document.getElementById("content"),
+) => {
+  const { VirtualList } = await import("./virtual-list.js");
+  const list = new VirtualList(scrollContainer, items, options);
+  return list.destroy.bind(list);
 };
-const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
-const api = new FetchService("/api");
-
-let cleanup = null;
-
-/** @returns {Pages} */
-function getPageFromHash() {
-  return /** @type {Pages} */ (location.hash.slice(1) || pages.ABOUT);
-}
-
-/** @param {{ navType?: 'push' | 'replace' }} [opts] - Navigation options. */
-function loadFromHash(opts) {
-  return handleRoute(getPageFromHash(), opts);
-}
 
 /** @param {Object} item */
 const renderProjectItem = (item) => {
@@ -35,6 +27,18 @@ const renderProjectItem = (item) => {
 	`;
 };
 
+const portfolioLoader = async () => {
+  const api = new FetchService("api");
+  const projects = await api.get("/portfolio-projects.json");
+  return renderVirtualList(projects, {
+    className: "projects",
+    itemHeight: 170,
+    gap: 16,
+    getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
+    renderItem: renderProjectItem,
+  });
+};
+
 /** @param {Object} item */
 const renderBlogItem = (item) => {
   return `
@@ -45,101 +49,48 @@ const renderBlogItem = (item) => {
 	`;
 };
 
-const handlersMap = {
-  [pages.PORTFOLIO]: async () => {
-    const { VirtualList } = await import("./virtual-list.js");
-    const projects = await api.get("/portfolio-projects.json");
-    const list = new VirtualList(document.getElementById("content"), projects, {
-      className: "projects",
-      itemHeight: 170,
-      gap: 16,
-      getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
-      renderItem: renderProjectItem,
-    });
+const blogLoader = async () => {
+  const api = new FetchService();
+  const posts = await api.get("/posts.json");
+  return renderVirtualList(posts, {
+    className: "blog",
+    itemHeight: 200,
+    gap: 16,
+    renderItem: renderBlogItem,
+  });
+};
 
-    return list.destroy.bind(list);
+/** @readonly */
+export const pages = /** @type {const} */ ({
+  ABOUT: "about",
+  PORTFOLIO: "portfolio",
+  BLOG: "blog",
+  CONTACT: "contact",
+});
+
+/** @type {Record<import("./types").Page, import("./types").RouteConfig>} */
+const routes = {
+  [pages.ABOUT]: {
+    path: "#",
+    load: async () => {},
   },
-  [pages.BLOG]: async () => {
-    const { VirtualList } = await import("./virtual-list.js");
-    const api = new FetchService();
-    const posts = await api.get("/posts.json");
-    const list = new VirtualList(document.getElementById("content"), posts, {
-      className: "blog",
-      itemHeight: 200,
-      gap: 16,
-      renderItem: renderBlogItem,
-    });
-
-    return list.destroy.bind(list);
+  [pages.PORTFOLIO]: {
+    path: "#portfolio",
+    load: portfolioLoader,
+  },
+  [pages.BLOG]: {
+    path: "#blog",
+    load: blogLoader,
+  },
+  [pages.CONTACT]: {
+    path: "#contact",
+    load: async () => {},
   },
 };
 
-/** @param {Pages} page */
-async function handleLoadScripts(page) {
-  const handler = handlersMap[page];
-  if (typeof handler == "function") {
-    cleanup = await handler();
-  }
-}
+const router = new Router(routes, pages.ABOUT);
 
-/**
- * @async
- * @param {Pages} page - The page identifier.
- * @param {{ navType?: 'push' | 'replace' }} [opts] - Navigation options.
- * @returns {Promise<void>}
- */
-async function handleRoute(page, opts = { navType: "push" }) {
-  const content = document.querySelector("#content");
-  content.classList.add("preload");
-
-  if (typeof cleanup == "function") {
-    cleanup();
-    cleanup = null;
-  }
-
-  try {
-    const res = await fetch(`pages/${page}.html`);
-
-    if (!res.ok) {
-      throw new Error(res.status.toString());
-    }
-
-    const html = await res.text();
-    content.innerHTML = html;
-
-    const url = page == pages.ABOUT ? "/" : `#${page}`;
-    switch (opts.navType) {
-      case "push":
-        history.pushState(null, "", url);
-        break;
-      case "replace":
-        history.replaceState(null, "", url);
-        break;
-    }
-
-    document.querySelector(".sidebar li.active")?.classList.remove("active");
-    document.querySelector(`li[data-page=${page}]`).classList.add("active");
-
-    await handleLoadScripts(page);
-    content.classList.remove("preload");
-  } catch (err) {
-    // @TODO: we're going to need a nice failure screen
-    content.innerHTML = "<h1>Error loading page</h1>";
-    console.error(err);
-  }
-}
-
-window.addEventListener("DOMContentLoaded", () => loadFromHash());
-window.addEventListener("popstate", () => loadFromHash({ navType: "replace" }));
-
-/**
- * @param {string | undefined} value
- * @returns {value is Pages}
- */
-function isPage(value) {
-  return typeof value === "string" && Object.values(pages).includes(value);
-}
-
+const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
 for (const link of sidebarMenuItems) {
   link.addEventListener(
     "click",
@@ -148,10 +99,10 @@ for (const link of sidebarMenuItems) {
       e.preventDefault();
       if (
         e.currentTarget instanceof HTMLElement &&
-        isPage(e.currentTarget.dataset.page) &&
-        e.currentTarget.dataset.page !== (location.hash.slice(1) || pages.ABOUT)
+        router.isPage(e.currentTarget.dataset.page) &&
+        e.currentTarget.dataset.page !== (location.hash.slice(1) || "about")
       ) {
-        handleRoute(e.currentTarget.dataset.page);
+        router.navigateTo(e.currentTarget.dataset.page);
       }
     },
   );
