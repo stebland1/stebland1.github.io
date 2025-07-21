@@ -1,5 +1,5 @@
 import { blogLoader, portfolioLoader } from "./components.js";
-import { Router } from "./router.js";
+import { router } from "./router.js";
 
 /** @readonly */
 export const pages = /** @type {const} */ ({
@@ -29,7 +29,7 @@ const routes = {
   },
 };
 
-const router = new Router(routes, pages.ABOUT);
+router.initializeRoutes(routes, pages.ABOUT);
 
 const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
 for (const link of sidebarMenuItems) {

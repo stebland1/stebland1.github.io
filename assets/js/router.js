@@ -1,17 +1,22 @@
-export class Router {
-  /**
-   * @param {Record<import("./types").Page, import("./types").RouteConfig>} routes
-   * @param {import("./types").Page} [defaultPage]
-   */
-  constructor(routes, defaultPage) {
-    this.routes = routes;
-    this.defaultPage = defaultPage || Object.keys(routes)[0];
+class Router {
+  constructor() {
+    this.routes = {};
+    this.defaultPage = undefined;
     this.currentCleanup = null;
 
     window.addEventListener("DOMContentLoaded", () => this.loadFromHash());
     window.addEventListener("popstate", () =>
       this.loadFromHash({ navType: "replace" }),
     );
+  }
+
+  /**
+   * @param {Record<import("./types").Page, import("./types").RouteConfig>} routes
+   * @param {import("./types").Page} [defaultPage]
+   */
+  initializeRoutes(routes, defaultPage) {
+    this.routes = routes;
+    this.defaultPage = defaultPage || Object.keys(routes)[0];
   }
 
   /**
@@ -27,7 +32,7 @@ export class Router {
   /** @returns {import("./types").Page} */
   getRouteFromHash() {
     return /** @type {import("./types").Page} */ (
-      location.hash.slice(1) || "about"
+      location.hash.slice(1) || this.defaultPage
     );
   }
 
@@ -59,7 +64,6 @@ export class Router {
 
     try {
       const res = await fetch(`pages/${route}.html`);
-
       if (!res.ok) {
         throw new Error(res.status.toString());
       }
@@ -67,7 +71,7 @@ export class Router {
       const html = await res.text();
       content.innerHTML = html;
 
-      const url = route == "about" ? "/" : routeConfig.path;
+      const url = route == this.defaultPage ? "/" : routeConfig?.path;
       switch (opts.navType) {
         case "push":
           history.pushState(null, "", url);
@@ -77,10 +81,16 @@ export class Router {
           break;
       }
 
-      document.querySelector(".sidebar li.active")?.classList.remove("active");
-      document.querySelector(`li[data-page=${route}]`).classList.add("active");
+      if (routeConfig) {
+        document
+          .querySelector(".sidebar li.active")
+          ?.classList.remove("active");
+        document
+          .querySelector(`li[data-page=${route}]`)
+          .classList.add("active");
+      }
 
-      const cleanup = await routeConfig.load();
+      const cleanup = await routeConfig?.load();
       if (typeof cleanup === "function") {
         this.currentCleanup = cleanup;
       }
@@ -93,3 +103,7 @@ export class Router {
     }
   }
 }
+
+const router = new Router();
+
+export { router };
