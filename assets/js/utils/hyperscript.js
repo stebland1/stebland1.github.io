@@ -18,9 +18,11 @@ export const h = (tagName, props = {}, ...children) => {
   }
 
   for (const child of children) {
-    el.appendChild(
-      child instanceof Node ? child : document.createTextNode(child),
-    );
+    if (child) {
+      el.appendChild(
+        child instanceof Node ? child : document.createTextNode(child),
+      );
+    }
   }
 
   return el;
