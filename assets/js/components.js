@@ -26,7 +26,10 @@ const projectItem = (item) => {
     h(
       "div",
       { className: "tags" },
-      ...item.tags.map((tag) => h("span", { className: "tag" }, tag)),
+      ...(item.tags || []).map(
+        /** @param {Object} tag */ (tag) =>
+          h("span", { className: "tag" }, tag),
+      ),
     ),
     h("p", {}, item.text),
     h("span", { className: "more" }, "Read more ->"),
@@ -50,11 +53,16 @@ const blogItem = (item) => {
     "article",
     { className: "card post" },
     h("h3", {}, item.title),
-    h("time", { className: "date", dateTime: item.date }, item.date),
+    item.date
+      ? h("time", { className: "date", dateTime: item.date }, item.date)
+      : null,
     h(
       "div",
       { className: "tags" },
-      ...item.tags.map((tag) => h("span", { className: "tag" }, tag)),
+      ...(item.tags || []).map(
+        /** @param {Object} tag */ (tag) =>
+          h("span", { className: "tag" }, tag),
+      ),
     ),
     h("p", {}, item.summary),
   );
