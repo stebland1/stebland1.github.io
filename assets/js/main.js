@@ -10,6 +10,9 @@ export const pages = /** @type {const} */ ({
   CONTACT: "contact",
 });
 
+const containerId = "content";
+export const getScrollContainer = () => document.getElementById(containerId);
+
 /** @type {Record<import("./types").Page, import("./types").RouteConfig>} */
 const routes = {
   [pages.ABOUT]: {
@@ -30,7 +33,8 @@ const routes = {
   },
 };
 
-router.initializeRoutes(routes, pages.ABOUT);
+const defaultPage = pages.ABOUT;
+router.initializeRoutes(routes, defaultPage);
 
 const sidebarMenuItems = document.querySelectorAll(".sidebar .menu li");
 for (const link of sidebarMenuItems) {
@@ -42,9 +46,13 @@ for (const link of sidebarMenuItems) {
       if (
         e.currentTarget instanceof HTMLElement &&
         router.isPage(e.currentTarget.dataset.page) &&
-        e.currentTarget.dataset.page !== (location.hash.slice(1) || pages.ABOUT)
+        e.currentTarget.dataset.page !== (location.hash.slice(1) || defaultPage)
       ) {
-        router.navigateTo(e.currentTarget.dataset.page);
+        const page =
+          e.currentTarget.dataset.page == defaultPage
+            ? "/"
+            : `#${e.currentTarget.dataset.page}`;
+        router.navigateTo(page);
       }
     },
   );

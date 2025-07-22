@@ -1,3 +1,4 @@
+import { getScrollContainer } from "./main.js";
 import { router } from "./router.js";
 import { h } from "./utils/hyperscript.js";
 
@@ -9,7 +10,7 @@ import { h } from "./utils/hyperscript.js";
 export const renderVirtualList = async (
   items,
   options,
-  scrollContainer = document.getElementById("content"),
+  scrollContainer = getScrollContainer(),
 ) => {
   const { VirtualList } = await import("./virtual-list.js");
   const list = new VirtualList(scrollContainer, items, options);
@@ -43,7 +44,7 @@ export const blogItem = (item) => {
     {
       className: "card post",
       onclick: () => {
-        router.navigateTo(item.slug);
+        router.navigateTo(`${location.hash}/${item.slug}`);
       },
     },
     h("h3", {}, item.title),
