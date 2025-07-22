@@ -62,45 +62,22 @@ class Router {
       this.currentCleanup = null;
     }
 
-    try {
-      const res = await fetch(`pages/${route}.html`);
-      if (!res.ok) {
-        throw new Error(res.status.toString());
-      }
-
-      const html = await res.text();
-      content.innerHTML = html;
-
-      const url = route == this.defaultPage ? "/" : routeConfig?.path;
-      switch (opts.navType) {
-        case "push":
-          history.pushState(null, "", url);
-          break;
-        case "replace":
-          history.replaceState(null, "", url);
-          break;
-      }
-
-      if (routeConfig) {
-        document
-          .querySelector(".sidebar li.active")
-          ?.classList.remove("active");
-        document
-          .querySelector(`li[data-page=${route}]`)
-          .classList.add("active");
-      }
-
-      const cleanup = await routeConfig?.load();
-      if (typeof cleanup === "function") {
-        this.currentCleanup = cleanup;
-      }
-
-      content.classList.remove("preload");
-    } catch (err) {
-      // @TODO: we're going to need a nice failure screen
-      content.innerHTML = "<h1>Error loading route</h1>";
-      console.error(err);
+    const url = route == this.defaultPage ? "/" : routeConfig?.path;
+    switch (opts.navType) {
+      case "push":
+        history.pushState(null, "", url);
+        break;
+      case "replace":
+        history.replaceState(null, "", url);
+        break;
     }
+
+    const cleanup = await routeConfig?.load();
+    if (typeof cleanup === "function") {
+      this.currentCleanup = cleanup;
+    }
+
+    content.classList.remove("preload");
   }
 }
 

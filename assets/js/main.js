@@ -1,4 +1,5 @@
-import { blogLoader, portfolioLoader } from "./components.js";
+import { blogLoader, portfolioLoader } from "./loaders.js";
+import { loadPage } from "./loaders.js";
 import { router } from "./router.js";
 
 /** @readonly */
@@ -13,7 +14,7 @@ export const pages = /** @type {const} */ ({
 const routes = {
   [pages.ABOUT]: {
     path: "#",
-    load: async () => {},
+    load: async () => loadPage(pages.ABOUT),
   },
   [pages.PORTFOLIO]: {
     path: "#portfolio",
@@ -25,7 +26,7 @@ const routes = {
   },
   [pages.CONTACT]: {
     path: "#contact",
-    load: async () => {},
+    load: async () => loadPage(pages.CONTACT),
   },
 };
 
@@ -41,7 +42,7 @@ for (const link of sidebarMenuItems) {
       if (
         e.currentTarget instanceof HTMLElement &&
         router.isPage(e.currentTarget.dataset.page) &&
-        e.currentTarget.dataset.page !== (location.hash.slice(1) || "about")
+        e.currentTarget.dataset.page !== (location.hash.slice(1) || pages.ABOUT)
       ) {
         router.navigateTo(e.currentTarget.dataset.page);
       }

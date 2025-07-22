@@ -1,4 +1,4 @@
-import { FetchService } from "./utils/fetch-service.js";
+import { router } from "./router.js";
 import { h } from "./utils/hyperscript.js";
 
 /**
@@ -17,7 +17,7 @@ export const renderVirtualList = async (
 };
 
 /** @param {Object} item */
-const projectItem = (item) => {
+export const projectItem = (item) => {
   return h(
     "article",
     { className: "card project" },
@@ -36,22 +36,16 @@ const projectItem = (item) => {
   );
 };
 
-export const portfolioLoader = async () => {
-  const api = new FetchService("api");
-  const projects = await api.get("/portfolio-projects.json");
-  return renderVirtualList(projects, {
-    itemHeight: 170,
-    gap: 16,
-    getNumCols: () => (window.innerWidth < 600 ? 1 : 2),
-    renderItem: projectItem,
-  });
-};
-
 /** @param {Object} item */
-const blogItem = (item) => {
+export const blogItem = (item) => {
   return h(
     "article",
-    { className: "card post" },
+    {
+      className: "card post",
+      onclick: () => {
+        router.navigateTo(item.slug);
+      },
+    },
     h("h3", {}, item.title),
     item.date
       ? h("time", { className: "date", dateTime: item.date }, item.date)
@@ -66,14 +60,4 @@ const blogItem = (item) => {
     ),
     h("p", {}, item.summary),
   );
-};
-
-export const blogLoader = async () => {
-  const api = new FetchService();
-  const posts = await api.get("/posts.json");
-  return renderVirtualList(posts, {
-    itemHeight: 200,
-    gap: 16,
-    renderItem: blogItem,
-  });
 };
