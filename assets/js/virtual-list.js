@@ -83,9 +83,10 @@ export class VirtualList {
     const scrollTop = this.scrollContainer.scrollTop;
     const offsetTop = this.listContainer.offsetTop;
     const scrolled = scrollTop - offsetTop;
+    const gap = ((this.numRows - 1) * this.gap) / this.numRows;
     const startIdx = Math.max(
       0,
-      Math.ceil(scrolled / this.itemHeight) - this.buffer,
+      Math.ceil(scrolled / (this.itemHeight + gap)) - this.buffer,
     );
 
     for (let i = 0; i < this.poolSize; i++) {
@@ -101,7 +102,6 @@ export class VirtualList {
       const col = idx % this.numCols;
       const row = Math.floor(idx / this.numCols);
 
-      domEl.classList.add("list-item");
       domEl.style.display = "block";
       domEl.style.position = "absolute";
       domEl.style.height = `${this.itemHeight}px`;
