@@ -84,10 +84,9 @@ export class VirtualList {
     const offsetTop = this.listContainer.offsetTop;
     const scrolled = scrollTop - offsetTop;
     const gap = ((this.numRows - 1) * this.gap) / this.numRows;
-    const startIdx = Math.max(
-      0,
-      Math.ceil(scrolled / (this.itemHeight + gap)) - this.buffer,
-    );
+    const itemsScrolled =
+      Math.ceil(scrolled / (this.itemHeight + gap)) * this.numCols;
+    const startIdx = Math.max(0, itemsScrolled - this.buffer);
 
     for (let i = 0; i < this.poolSize; i++) {
       const idx = startIdx + i;
