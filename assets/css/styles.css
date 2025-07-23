@@ -306,20 +306,20 @@ h2 {
 }
 
 /* Base styles for ULs */
-ul {
+#content ul {
   list-style: none; /* We'll add our own bullets */
   margin-left: 0;
   position: relative;
 }
 
 /* Each list item */
-ul li {
+#content ul li {
   position: relative;
   padding-left: 1rem;
 }
 
 /* Custom bullet */
-ul li::before {
+#content ul li::before {
   content: "•";
   position: absolute;
   left: -0.1rem;
@@ -329,7 +329,7 @@ ul li::before {
 }
 
 /* Vertical indentation line */
-ul li::after {
+#content ul li::after {
   content: "";
   position: absolute;
   left: 0.23rem;
@@ -340,11 +340,11 @@ ul li::after {
 }
 
 /* Only show line if nested */
-ul li:not(:has(ul))::after {
+#content ul li:not(:has(ul))::after {
   display: none;
 }
 
-li ul {
+#content li ul {
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
   margin-left: 1rem;
