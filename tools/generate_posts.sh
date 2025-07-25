@@ -25,6 +25,10 @@ while IFS="=" read -r filename timestamp; do
 		echo "$filename=$timestamp" >>$tmp_cache
 	else
 		echo "Removing stale cache entry for $filename"
+		slug=$(jq -r --arg filename "$filename" '.[] | select(.filename == $filename) | .slug' "$ROOT/posts.json")
+		if [[ -n "$slug" ]]; then
+			rm -f "$OUTPUT_LOC/$slug.html"
+		fi
 	fi
 done <$CACHE
 
