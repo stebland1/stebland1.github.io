@@ -221,7 +221,8 @@ a:active {
   text-decoration: underline;
 }
 
-.card p {
+.card p,
+.card h3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -232,8 +233,12 @@ a:active {
   -webkit-line-clamp: 2;
 }
 
+.card h3 {
+  -webkit-line-clamp: 1;
+}
+
 .post p {
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
 }
 
 .tags {
@@ -248,7 +253,7 @@ a:active {
   padding: 0.4rem;
   border-radius: 0.2rem;
   min-width: 2rem;
-  max-width: 6rem;
+  max-width: 7rem;
   text-align: center;
   display: block;
   -webkit-box-orient: vertical;
